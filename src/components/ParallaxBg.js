@@ -24,7 +24,7 @@ const insideStyles = {
 const ParallaxBg = () => (
   <div style={styles}>
     <Parallax bgImage={image1} strength={600}>
-      <FadeIn>
+      <FadeIn delay={800}>
         <div style={{ height: 700 }}>
           <div style={insideStyles}>Your Health is our priority</div>
           <a href='#appointment'><Button variant="success" style={{ marginTop: '85vh' }}>Book an appointment now</Button></a>
