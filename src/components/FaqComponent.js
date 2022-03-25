@@ -1,6 +1,8 @@
 import React from "react";
 import Faq from "react-faq-component";
 
+const bg = require('../Assets/img/bg.jpg');
+
 const data = {
     title: "FAQ (How it works)",
     rows: [
@@ -31,11 +33,12 @@ const data = {
 };
 
 const styles = {
-    bgColor: 'white',
-    titleTextColor: "blue",
-    rowTitleColor: "blue",
-    rowContentColor: 'grey',
-    arrowColor: "red",
+    // bgColor: 'white',
+    // titleTextColor: "blue",
+    // rowTitleColor: "blue",
+    // rowContentColor: 'grey',
+    // arrowColor: "red",
+    bgColor:'transparent',
 };
 
 const config = {
@@ -47,12 +50,17 @@ const config = {
 export default function FaqComponent() {
 
     return (
-        <div>
+        <div style={{backgroundImage: `url(${bg})`}}>
+            <div style={{height:'100px'}}></div>
+            <div style={{margin: '0 40px'}}>
+
             <Faq
                 data={data}
                 styles={styles}
                 config={config}
             />
+            </div>
+            <div style={{height:'100px'}}></div>
         </div>
     );
 }

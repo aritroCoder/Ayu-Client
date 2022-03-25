@@ -19,13 +19,17 @@ function changeNav(myNav) {
         myNav.classList.remove("navScrolled");
     }
 };
+
+//auto close the navbar in mobiles when user clicks outside the navbar(when its expanded)
+document.addEventListener('click',(e)=>{
+    if (!document.getElementById('mainNav').contains(e.target)){
+        document.getElementsByClassName("navbar-collapse")[0].classList.remove("show");
+        document.getElementsByClassName("navbar-collapse")[1].classList.remove("show");
+    }
+},false)
+
 const NavBar = () => {
-    // useEffect(() => {
-    //     // adding the event when scroll change Logo
-    //     window.addEventListener("scroll", changeNav);
-    //   })
     document.addEventListener('DOMContentLoaded', function (event) {
-        console.log('DOMContentLoaded before class:');
         myNav = document.getElementById('mainNav');
         window.addEventListener("scroll", () => { 
             changeNav(myNav);
@@ -42,7 +46,7 @@ const NavBar = () => {
                 position: "fixed",
                 top: "0",
                 width: "100%",
-                zIndex: "1"
+                zIndex: "2"
             }}>
                 <div className="container-fluid">
                     <div className="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
@@ -55,6 +59,9 @@ const NavBar = () => {
                             </li>
                             <li className="nav-item">
                                 <Link className="nav-link" to="/team" >Our Team</Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/faq" >FAQs</Link>
                             </li>
 
                         </ul>
