@@ -13,6 +13,7 @@ import Login from "./components/Login";
 import Signup from "./components/Signup";
 import Uc from './components/UnderConstruction'
 import Team from "./components/Team";
+import Faq from "./components/FaqComponent";
 
 function App() {
   return (
@@ -26,7 +27,9 @@ function App() {
           <Route exact path="/signup"> <Signup /> </Route>
           <Route exact path="/forgot"><Uc/></Route>
           <Route exact path="/team"> <Team/> </Route>
-          <Route exact path="/about">  </Route>
+          <Route exact path="/about"> </Route>
+          <Route exact path="/faq"> <Faq/></Route>
+
         </Switch>
         <Footer />
       </Router>

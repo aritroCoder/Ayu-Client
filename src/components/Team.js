@@ -24,7 +24,7 @@ const Members = [
     {
         name: 'Asmit Ganguly',
         task: 'Idea formulation, Technical advisor',
-        designation: 'Student, IIT Patna Mathematics and computing',
+        designation: 'Student, IIT Patna Mathematics and Computing',
         image: Asmit
     },
     {
