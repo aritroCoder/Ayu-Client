@@ -7,6 +7,7 @@ const Asmit = require('../Assets/img/Teams/Asmit.jpg');
 const Praveen = require('../Assets/img/Teams/Praveen.png');
 const Raj = require('../Assets/img/Teams/Raj.jpg');
 const Sachin = require('../Assets/img/Teams/Sachin.jpeg');
+const Anurag = require('../Assets/img/Teams/Anurag Das Group.jpeg');
 
 const Members = [
     {
@@ -49,7 +50,7 @@ const Members = [
         name: 'Anurag Das Group',
         task: 'Creatives and design',
         designation: 'Student, IIT Patna Civil Engineering',
-        image: 'https://static.vecteezy.com/system/resources/thumbnails/000/439/863/small/Basic_Ui__28186_29.jpg'
+        image: Anurag
     },
 ]
 
