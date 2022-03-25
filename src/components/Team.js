@@ -48,7 +48,7 @@ const Members = [
     },
     {
         name: 'Anurag Das Group',
-        task: 'Creatives and design',
+        task: 'Creatives and design, formatting expert and photo editor',
         designation: 'Student, IIT Patna Civil Engineering',
         image: Anurag
     },
