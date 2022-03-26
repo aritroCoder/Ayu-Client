@@ -123,7 +123,7 @@ const mainbody = () => {
                 <Carousel responsive={responsive} infinite= {true} ssr={true} showDots={true} itemClass="carousel-item-padding-40-px" autoPlay={false} autoPlaySpeed={1000000}>
                     {data.map(specialization => {
                         return (
-                            <CardItem title={specialization.title} img={specialization.img} text={specialization.text} />
+                            <CardItem title={specialization.title} img={specialization.img} text={specialization.text} key={specialization}/>
                         )
                     })}
                 </Carousel>
