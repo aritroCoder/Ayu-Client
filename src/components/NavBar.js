@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useContext } from 'react'
+import { LoginContext } from '../Contexts/LoginContext'
 import './navStyle.css'
 
 
@@ -21,19 +22,22 @@ function changeNav(myNav) {
 };
 
 //auto close the navbar in mobiles when user clicks outside the navbar(when its expanded)
-document.addEventListener('click',(e)=>{
-    if (!document.getElementById('mainNav').contains(e.target)){
+document.addEventListener('click', (e) => {
+    if (!document.getElementById('mainNav').contains(e.target)) {
         document.getElementsByClassName("navbar-collapse")[0].classList.remove("show");
         document.getElementsByClassName("navbar-collapse")[1].classList.remove("show");
     }
-},false)
+}, false)
 
 const NavBar = () => {
+
+    const { username } = useContext(LoginContext);
+
     document.addEventListener('DOMContentLoaded', function (event) {
         myNav = document.getElementById('mainNav');
-        window.addEventListener("scroll", () => { 
+        window.addEventListener("scroll", () => {
             changeNav(myNav);
-     }, false);
+        }, false);
     });
 
 
@@ -83,6 +87,9 @@ const NavBar = () => {
                             <li className="nav-item">
                                 <Link className="nav-link" to="/login">Log In</Link>
                             </li>
+                           {username.localeCompare("") !==0 && <li className="nav-item">
+                                <Link className="nav-link" to="/profile">{username}</Link>
+                            </li>}
                         </ul>
                     </div>
                 </div>

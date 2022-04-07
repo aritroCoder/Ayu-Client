@@ -6,7 +6,7 @@ import ToggleButton from 'react-bootstrap/ToggleButton'
 import bg from '../Assets/img/bg.jpg'
 
 // const host = 'http://localhost:5000';
-const host = 'https://ayubackend.herokuapp.com/';
+const host = 'https://ayubackend.herokuapp.com';
 
 var radioNumber;
 

@@ -1,17 +1,19 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button';
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 import SignupBg from './SignupBg';
+import { LoginContext } from '../Contexts/LoginContext'
+import Alert from 'react-bootstrap/Alert';
+import { useHistory } from 'react-router-dom';
 
 // const host = 'http://localhost:5000';
-const host = 'https://ayubackend.herokuapp.com/';
+const host = 'https://ayubackend.herokuapp.com';
 
-const submitPatient = async (event) => {
-    event.preventDefault();
+const submitPatient = async (setLoggedIn, setAuthtoken, setUsername, setError, history) => {
     //validation
-    if(document.getElementById('Ppassword').value.localeCompare(document.getElementById('PconfirmPassword').value)!==0){
+    if (document.getElementById('Ppassword').value.localeCompare(document.getElementById('PconfirmPassword').value) !== 0) {
         return alert("Password must match with confirm Password")
     }
     let gender = null;
@@ -42,17 +44,24 @@ const submitPatient = async (event) => {
 
     const json = await signupRes.json();
     console.log(json);
-    if(signupRes.status !== 200){
-        return alert(json.errors[0].msg);
-    }else{
-        localStorage.setItem('user', JSON.stringify(json));
+    if (signupRes.status !== 200) {
+        if (json.error) setError(json.error);
+        else setError(json.errors[0].msg);
+        setLoggedIn(false);
+        setAuthtoken(null);
+        setUsername("");
+    } else {
+        setLoggedIn(true);
+        setError(null)
+        setAuthtoken(json.authtoken);
+        setUsername(json.user.name);
+        history.push('/');
     }
 }
 
-const submitDoc = async (event) => {
-    event.preventDefault();
+const submitDoc = async (setLoggedIn, setAuthtoken, setUsername, setError, history) => {
     //validation
-    if(document.getElementById('password').value.localeCompare(document.getElementById('confirmPassword').value)!==0){
+    if (document.getElementById('password').value.localeCompare(document.getElementById('confirmPassword').value) !== 0) {
         return alert("Password must match with confirm Password")
     }
     let gender = null;
@@ -86,16 +95,31 @@ const submitDoc = async (event) => {
 
     const json = await signupRes.json();
     console.log(json);
-    if(signupRes.status !== 200){
-        alert(json.error);
-        return alert(json.errors[0].msg);
-    }else{
-        localStorage.setItem('user', JSON.stringify(json));
+    if (signupRes.status !== 200) {
+        // alert(json.error);
+        if (json.error) setError(json.error);
+        else setError(json.errors[0].msg);
+        setLoggedIn(false);
+        setAuthtoken(null);
+        setUsername("");
+        // return alert(json.errors[0].msg);
+    } else {
+        // localStorage.setItem('user', JSON.stringify(json));
+        setLoggedIn(true);
+        setError(null)
+        setAuthtoken(json.authtoken);
+        setUsername(json.user.name);
+        history.push('/');
     }
 }
 
 
-const signup = () => {
+const Signup = () => {
+
+    const { loggedIn, setLoggedIn, setAuthtoken, setUsername } = useContext(LoginContext);
+    const [error, setError] = useState('');
+    let history = useHistory();
+
     return (
         <>
             <SignupBg text="Create a free account now" />
@@ -103,7 +127,11 @@ const signup = () => {
                 <div style={{ height: '100px' }}></div>
                 <Tabs defaultActiveKey="patient" id="uncontrolled-tab-example" className="mb-3 ">
                     <Tab variant="success" className="text-success" eventKey="patient" title="Patient">
-                        <Form onSubmit={submitPatient}>
+                        <Form onSubmit={(e) => {
+                            e.preventDefault();
+                            submitPatient(setLoggedIn, setAuthtoken, setUsername, setError, history);;
+                            // return false;
+                        }}>
                             <Form.Group className="mb-3" nothing="formBasicName">
                                 <Form.Label>Your full name</Form.Label>
                                 <Form.Control id="Pname" type="text" placeholder="Enter your name" />
@@ -162,7 +190,10 @@ const signup = () => {
                         </Form>
                     </Tab>
                     <Tab className="text-success" eventKey="doctor" title="Doctor">
-                        <Form onSubmit={submitDoc}>
+                        <Form onSubmit={(e) => {
+                            e.preventDefault();
+                            submitDoc(setLoggedIn, setAuthtoken, setUsername, setError, history);
+                        }}>
                             <Form.Group className="mb-3" nothing="formBasicName">
                                 <Form.Label>Your full name</Form.Label>
                                 <Form.Control id="name" type="text" placeholder="Enter your name" />
@@ -236,10 +267,24 @@ const signup = () => {
                         </Form>
                     </Tab>
                 </Tabs >
+                {loggedIn &&
+                    <Alert variant="success" style={{ marginTop: '10px' }}>
+                        <Alert.Heading>Hey, nice to see you</Alert.Heading>
+                        <p>
+                            You have logged in successfully.
+                        </p>
+                    </Alert>}
+                {error &&
+                    <Alert variant="danger" style={{ marginTop: '10px' }}>
+                        <Alert.Heading>Oops, some error has occurred</Alert.Heading>
+                        <p>
+                            {error}
+                        </p>
+                    </Alert>}
                 <div style={{ height: '100px' }}></div>
             </div>
         </>
     )
 }
 
-export default signup
+export default Signup
